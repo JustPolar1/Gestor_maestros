@@ -2,15 +2,34 @@
 <html lang="es">
     <head>
         <link rel="stylesheet" href="static/style.css">
+        <!--Fuente lexend deca-->
+        <link href="https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap" rel="stylesheet">
+        <!--Iconos de fontawesome-->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     </head>
     <body>
-        <h1>Bienvenido al sistema de baja y alta de maestros</h1>
+        <div class="navegacion">
+            <nav>
+                <h1>Maestros UTCh</h1>
+            </nav>
+        </div>
         <section>
             <div class="acciones">
-                <h3>Acciones</h3>
+                <h3>Información</h3>
+                <button id="lista">Agregar</button>
             </div>
-            <div class="acciones">
+            <div class="acciones lista">
                 <h3>Lista de maestros:</h2>
+                <!--Lista-->
+                <ul id="maestros">
+                </ul>
+
+                <form id="buscar">
+                    <input type="text" id="buscador" placeholder="Buscar maestro...">
+                    <button type="submit">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
             </div>
         </section>
         <script src="/static/script.js"></script>

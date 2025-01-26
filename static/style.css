@@ -1,12 +1,50 @@
+* {
+    font-family: Lexend Deca, sans-serif;
+}
+
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: antiquewhite;
+    margin: 0;
+}
+
+button {
+    cursor: pointer;
+    transition: filter 0.7s ease; /* Suaviza la transición */
+
+}
+
+button:hover {
+    filter: brightness(0.88); /* Reduce el brillo al 80% */
+    transition: filter 0.4s ease; /* Suaviza la transición */
+}
+
+.navegacion {
+    display: flex;
+    justify-content: center;
+}
+
+nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: mediumaquamarine;
+    color: white;
+    padding: 15px;
+    border-radius: 1000px;
+    margin: 15px 10px;
+    color: black;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+nav * {
+    margin: 0 5px;
 }
 
 section {
     display: flex;
-    align-items: center;
     margin: auto;
-    width: 100%;
+    width: 75%;
     flex-wrap: wrap;
     justify-content: space-around;
     height: 100%;
@@ -17,12 +55,60 @@ h1 {
 }
 
 .acciones {
-    padding: 10px;
-    background-color: blanchedalmond;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
     border-radius: 10px;
-    height: 100vh;
+    flex: 1;
+    margin: 0 10px;
+    background-color: white;
+    box-shadow: inset 3px -2px 2px rgba(0, 0, 0, 0.1);
 }
 
 .acciones * {
     text-align: center;
+}
+
+.acciones h3 {
+    margin: 10px 0;
+}
+
+.acciones button {
+    border-radius: 1000px;
+    border: gray 2px solid;
+    padding: 10px;
+}
+
+.acciones.lista {
+    flex: 2;
+}
+
+#buscar {
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+#buscar * {
+    margin: 0;
+}
+
+#buscar button {
+    border-radius: 0 1000px 1000px 0;
+    border: gray 2px solid;
+    z-index: 1;
+    padding: 10px;
+    position: absolute; /* Botón sobrepuesto */
+    right: 0;
+    background-color: mediumaquamarine;
+}
+
+#buscador {
+    flex: 1;
+    border-radius: 1000px;
+    padding: 10px;
+    border: gray 2px solid;
+    z-index: 0;
+    text-align: left;
 }
