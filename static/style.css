@@ -1,0 +1,28 @@
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+section {
+    display: flex;
+    align-items: center;
+    margin: auto;
+    width: 100%;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    height: 100%;
+}
+
+h1 {
+    text-align: center;
+}
+
+.acciones {
+    padding: 10px;
+    background-color: blanchedalmond;
+    border-radius: 10px;
+    height: 100vh;
+}
+
+.acciones * {
+    text-align: center;
+}
