@@ -48,7 +48,7 @@ def index():
 
 @app.route("/maestros")
 def get_maestros():
-    cursor.execute()
+    cursor.execute("SELECT * FROM maestros")
 
 if __name__ == "__main__":
     app.run()

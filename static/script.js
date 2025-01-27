@@ -1,1 +1,8 @@
-const lista_maestros = document.getElementById("maestros");
+$(document).ready(function() {
+    $("#buscar").submit(function(event) {
+        event.preventDefault();
+        $("#buscador").val('');
+
+
+    });
+});
