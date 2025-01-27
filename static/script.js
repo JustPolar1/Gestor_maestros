@@ -1,4 +1,7 @@
 $(document).ready(function() {
+
+    $("#informacion-maestro").hide();
+
     $.ajax({
         url: '/maestros', // Reemplaza con la URL de tu API
         method: 'GET',

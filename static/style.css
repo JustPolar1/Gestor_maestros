@@ -48,6 +48,11 @@ nav * {
     margin: 0 5px;
 }
 
+#perfil {
+    border-radius: 100%;
+    width: 100px;
+}
+
 section {
     display: flex;
     margin: 0 auto;
