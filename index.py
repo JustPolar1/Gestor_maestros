@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory
+from flask import Flask, send_from_directory, jsonify
 import mysql.connector
 import mysql.connector.cursor
 import mysql.connector.cursor_cext
@@ -49,6 +49,7 @@ def index():
 @app.route("/maestros")
 def get_maestros():
     cursor.execute("SELECT * FROM maestros")
+    return jsonify(cursor.fetchall())
 
 if __name__ == "__main__":
     app.run()
