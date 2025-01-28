@@ -17,7 +17,6 @@ body {
 button {
     cursor: pointer;
     transition: filter 0.7s ease; /* Suaviza la transición */
-
 }
 
 button:hover {
@@ -112,6 +111,16 @@ h1 {
     padding: 10px;
 }
 
+#baja, #modificar {
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+#baja {
+    background-color: coral;
+    margin-bottom: 10px;
+}
+
 .acciones.lista {
     flex: 2;
     height: calc(100% - 80px);
@@ -120,6 +129,7 @@ h1 {
 #maestros {
     flex-grow: 1;
     overflow-y: auto;
+    padding-left: 0;
 }
 
 #maestros li {
@@ -127,6 +137,7 @@ h1 {
     width: 80%;
     margin: auto;
     background-color: white;
+    padding-left: 0;
 }
 
 #maestros li:hover {

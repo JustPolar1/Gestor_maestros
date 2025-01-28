@@ -98,13 +98,31 @@ def delete_maestro():
         cursor.execute("DELETE FROM maestros WHERE maestro_id = %s", (id,))
         db.connection.commit()
         db.connection.close()
-        
+
         if cursor.rowcount == 0:
             return jsonify({"message": "Maestro no encontrado"}), 404
         return jsonify({"message": "Maestro eliminado exitosamente"}), 200
     except Exception as e:
         print(e)
         return jsonify({"message": str(e)}), 500
+    
+@app.route("/buscar_maestro", methods=["GET"])
+def buscar_maestro():
+    nombre_completo = request.args.get("nombre_completo")
+    if not nombre_completo:
+        return jsonify({"message": "Nombre completo es requerido"}), 400
+
+    db.connect()
+    cursor = db.cursor()
+    cursor.execute("""
+        SELECT * FROM maestros 
+        WHERE CONCAT(maestro_nombres, ' ', maestro_apellido_paterno, ' ', maestro_apellido_materno) LIKE %s
+    """, ('%' + nombre_completo + '%',))
+    maestros = cursor.fetchall()
+    db.connection.close()
+    print(maestros)
+    return jsonify(maestros)
+
 
 if __name__ == "__main__":
     app.run()

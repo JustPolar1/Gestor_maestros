@@ -16,7 +16,7 @@ $(document).ready(function() {
             }
         });
     }
-    
+
     function renderMaestros(maestros) {
         console.log("Rendering maestros");
 
@@ -24,7 +24,7 @@ $(document).ready(function() {
             acc[maestro[0]] = [maestro[1], maestro[2], maestro[3], maestro[5]];
             return acc;
         }, {});
-    
+
         console.log(maestrosJSON);  // Ver el JSON creado
 
         // Limpiar la lista antes de agregar nuevos elementos
@@ -36,7 +36,8 @@ $(document).ready(function() {
         }
 
         maestros.forEach((maestro, index) => {
-            $("#maestros").append("<li>" + maestro[1] + " " + maestro[2] + " " + maestro[3] + "</li>");
+            // Agregar la ID del maestro como un atributo data-id
+            $("#maestros").append("<li data-id='" + maestro[0] + "'>" + maestro[1] + " " + maestro[2] + " " + maestro[3] + "</li>");
             // Agregar <hr> solo si no es el último elemento
             if (index < maestros.length - 1) {
                 $("#maestros").append("<hr>");
@@ -44,7 +45,48 @@ $(document).ready(function() {
         });
 
         console.log(maestrosJSON);
-        return maestrosJSON
+        return maestrosJSON;
+    }
+
+    function fetchBuscarMaestro(nombre_completo, callback) {
+        return $.ajax({
+            url: '/buscar_maestro', // Reemplaza con la URL de tu API
+            method: 'GET',
+            data: { nombre_completo: nombre_completo },
+            success: (response) => {
+                if (callback) {
+                    callback(response);
+                }
+                return response;
+            },
+            error: (error) => {
+                // Manejar el error
+                console.error(error);
+            }
+        });
+    }
+    
+    function renderBuscarMaestro(maestros) {
+        console.log("Rendering search results");
+    
+        // Limpiar la lista antes de agregar nuevos elementos
+        $("#maestros").empty();
+    
+        if (maestros.length === 0) {
+            $("#maestros").append("<li>No se ha encontrado ningún maestro con ese nombre</li>");
+            return;
+        }
+    
+        maestros.forEach((maestro, index) => {
+            // Agregar la ID del maestro como un atributo data-id
+            $("#maestros").append("<li data-id='" + maestro[0] + "'>" + maestro[1] + " " + maestro[2] + " " + maestro[3] + "</li>");
+            // Agregar <hr> solo si no es el último elemento
+            if (index < maestros.length - 1) {
+                $("#maestros").append("<hr>");
+            }
+        });
+    
+        console.log(maestros);
     }
 
     $("#informacion-maestro").hide();
@@ -88,22 +130,22 @@ $(document).ready(function() {
     });
 
     $("#maestros").on("click", "li", function(event) {
-        var index = $("#maestros li").index(this);
-
+        maestro_actual = $(this).data("id");  // Almacena la ID del maestro en una variable global
+    
         $("#agregar-maestro").hide();
         $("#informacion-maestro").show();
         $("#lista").show();
-
+    
         $.ajax({
-            url: '/maestros?id=' + (index + 1), // Reemplaza con la URL de tu API
+            url: '/maestros?id=' + maestro_actual,  // Usar la ID almacenada en la variable global
             method: 'GET',
             success: (response) => {
-                maestro_actual = response[0];
-
+                // Suponiendo que response es un array con la información del maestro
+                // Si es un objeto o tiene otro formato, ajusta según la estructura de tu respuesta.
                 $("#nombre").text(response[1] + " " + response[2] + " " + response[3]);
-
+    
                 const date = new Date(response[5]);
-
+    
                 // Formateando la fecha de forma legible
                 const formattedDate = date.toLocaleDateString("es-MX", {
                     year: "numeric",
@@ -139,6 +181,14 @@ $(document).ready(function() {
 
     $("#buscar").submit(function(event) {
         event.preventDefault();
+        const nombre_completo = $("#buscador").val();
+        
+        if (nombre_completo === '') {
+            fetchMaestros(renderMaestros);
+            return;
+        }
+
+        fetchBuscarMaestro(nombre_completo, renderBuscarMaestro);
         $("#buscador").val('');
     });
 });
