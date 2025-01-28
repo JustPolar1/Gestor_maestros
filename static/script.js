@@ -89,8 +89,8 @@ $(document).ready(function() {
         console.log(maestros);
     }
 
-    $("#informacion-maestro").hide();
     $("#agregar-maestro").hide();
+    $("#modificar-maestro").hide();
 
     // Llamar a fetchMaestros con un callback
     fetchMaestros(renderMaestros);
@@ -119,20 +119,23 @@ $(document).ready(function() {
                 console.error(error);
             }
         });
-        $("#lista").show();
-        $("#agregar-maestro").hide();
     });
 
     $("#lista").click(() => {
-        $("#agregar-maestro").show();
+        $("#guardar").text("Guardar maestro");
+
         $("#informacion-maestro").hide();
         $("#lista").hide();
+        $("#modificar-maestro").hide();
+        $("#agregar-maestro").show();
+        $("#fecha_nacimiento").show();
     });
 
     $("#maestros").on("click", "li", function(event) {
         maestro_actual = $(this).data("id");  // Almacena la ID del maestro en una variable global
     
         $("#agregar-maestro").hide();
+        $("#modificar-maestro").hide();
         $("#informacion-maestro").show();
         $("#lista").show();
     
@@ -143,6 +146,7 @@ $(document).ready(function() {
                 // Suponiendo que response es un array con la información del maestro
                 // Si es un objeto o tiene otro formato, ajusta según la estructura de tu respuesta.
                 $("#nombre").text(response[1] + " " + response[2] + " " + response[3]);
+                $("#nombre_modificar").text(response[1] + " " + response[2] + " " + response[3]);
     
                 const date = new Date(response[5]);
     
@@ -156,6 +160,39 @@ $(document).ready(function() {
                 $("#fecha").text(formattedDate);
             },
             error: (error) => {
+                console.error(error);
+            }
+        });
+    });
+
+    $("#modificar").click(function(event) {
+        $("#informacion-maestro").hide();
+        $("#modificar-maestro").show();
+    });
+
+    $("#modificar-maestro form").submit( function(event) {
+        event.preventDefault();
+        $.ajax({
+            url: '/maestros?id=' + maestro_actual, // Reemplaza con la URL de tu API
+            method: 'PUT',
+            contentType: 'application/json', // Asegúrate de que el tipo de contenido sea JSON
+            data: JSON.stringify({
+                maestro_nombres: $("#modificar_nombres").val(),
+                maestro_apellido_paterno: $("#modificar_apellido_paterno").val(),
+                maestro_apellido_materno: $("#modificar_apellido_materno").val()
+            }),
+            success: (response) => {
+                // Manejar la respuesta
+                fetchMaestros(renderMaestros);
+                alert(response.message);
+                $("#modificar-maestro").hide();
+                $("#informacion-maestro").show();
+                $("#lista").show();
+
+                $("#nombre").text($("#modificar_nombres").val() + " " + $("#modificar_apellido_paterno").val() + " " + $("#modificar_apellido_materno").val());
+            },
+            error: (error) => {
+                alert(error.responseJSON.message);
                 console.error(error);
             }
         });

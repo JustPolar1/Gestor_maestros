@@ -106,6 +106,34 @@ def delete_maestro():
         print(e)
         return jsonify({"message": str(e)}), 500
     
+@app.route("/maestros", methods=["PUT"])
+def modificar_maestro():
+    id = request.args.get("id")
+    data = request.get_json()
+    try:
+        db.connect()
+        cursor = db.cursor()
+
+        cursor.execute("""
+            UPDATE maestros 
+            SET maestro_nombres = %s, maestro_apellido_paterno = %s, maestro_apellido_materno = %s 
+            WHERE maestro_id = %s
+        """, (data["maestro_nombres"], 
+              data["maestro_apellido_paterno"], 
+              data["maestro_apellido_materno"], 
+              id))
+
+        db.connection.commit()
+        db.connection.close()
+
+        if cursor.rowcount == 0:
+            return jsonify({"message": "Maestro no encontrado"}), 404
+        return jsonify({"message": "Maestro modificado exitosamente"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"message": str(e)}), 500
+
+    
 @app.route("/buscar_maestro", methods=["GET"])
 def buscar_maestro():
     nombre_completo = request.args.get("nombre_completo")

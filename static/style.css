@@ -52,20 +52,20 @@ nav * {
     width: 100px;
 }
 
-#agregar-maestro form {
+#agregar-maestro form, #modificar-maestro form {
     display: flex;
     flex-direction: column;
     gap: 10px;
     margin: 10px auto;
 }
 
-#agregar-maestro form input {
+#agregar-maestro form input, #modificar-maestro form input {
     padding: 10px;
     border-radius: 10px;
     border: gray 2px solid;
 }
 
-#agregar-maestro form button {
+#agregar-maestro form button, #modificar-maestro form button {
     background-color: mediumaquamarine;
 }
 

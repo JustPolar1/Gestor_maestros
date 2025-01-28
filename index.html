@@ -27,13 +27,24 @@
                     
                 </div>
                 
+                <div id="modificar-maestro">
+                    <img id="perfil" src="/static/foto.png" alt="Foto de perfil">
+                    <p id="nombre_modificar">-</p>
+                    <form>
+                        <input type="text" id="modificar_nombres" placeholder="Nombre del maestro" required>
+                        <input type="text" id="modificar_apellido_paterno" placeholder="Apelllido paterno" required>
+                        <input type="text" id="modificar_apellido_materno" placeholder="Apellido materno">
+                        <button id="guardar" type="submit">Modificar maestro</button>
+                    </form>
+                </div>
+
                 <div id="agregar-maestro">
                     <form>
-                        <input type="text" id="maestro_nombres" placeholder="Nombre del maestro">
-                        <input type="text" id="maestro_apellido_paterno" placeholder="Apelllido paterno">
+                        <input type="text" id="maestro_nombres" placeholder="Nombre del maestro" required>
+                        <input type="text" id="maestro_apellido_paterno" placeholder="Apelllido paterno" required>
                         <input type="text" id="maestro_apellido_materno" placeholder="Apellido materno">
-                        <input type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento">
-                        <button type="submit">Guardar maestro</button>
+                        <input type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento" required>
+                        <button id="guardar" type="submit">Guardar maestro</button>
                     </form>
                 </div>
                                 
