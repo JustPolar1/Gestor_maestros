@@ -1,4 +1,4 @@
-var maestrosLista;
+var maestro_actual;
 $(document).ready(function() {
     function fetchMaestros(callback) {
         return $.ajax({
@@ -93,10 +93,13 @@ $(document).ready(function() {
         $("#agregar-maestro").hide();
         $("#informacion-maestro").show();
         $("#lista").show();
+
         $.ajax({
             url: '/maestros?id=' + (index + 1), // Reemplaza con la URL de tu API
             method: 'GET',
             success: (response) => {
+                maestro_actual = response[0];
+
                 $("#nombre").text(response[1] + " " + response[2] + " " + response[3]);
 
                 const date = new Date(response[5]);
@@ -111,7 +114,25 @@ $(document).ready(function() {
                 $("#fecha").text(formattedDate);
             },
             error: (error) => {
+                console.error(error);
+            }
+        });
+    });
 
+    $("#baja").click(function(event) {
+        $.ajax({
+            url: '/maestros?id=' + maestro_actual, // Reemplaza con la URL de tu API
+            method: 'DELETE',
+            success: (response) => {
+                // Manejar la respuesta
+                fetchMaestros(renderMaestros);
+                alert(response.message);
+                $("#informacion-maestro").hide();
+                $("#lista").hide();
+            },
+            error: (error) => {
+                alert(error.responseJSON.message);
+                console.error(error);
             }
         });
     });

@@ -88,5 +88,23 @@ def post_maestro():
         print(e)
         return jsonify({"message": str(e)}), 500
 
+@app.route("/maestros", methods=["DELETE"])
+def delete_maestro():
+    id = request.args.get("id")
+    try:
+        db.connect()
+        cursor = db.cursor()
+
+        cursor.execute("DELETE FROM maestros WHERE maestro_id = %s", (id,))
+        db.connection.commit()
+        db.connection.close()
+        
+        if cursor.rowcount == 0:
+            return jsonify({"message": "Maestro no encontrado"}), 404
+        return jsonify({"message": "Maestro eliminado exitosamente"}), 200
+    except Exception as e:
+        print(e)
+        return jsonify({"message": str(e)}), 500
+
 if __name__ == "__main__":
     app.run()
