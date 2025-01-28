@@ -3,29 +3,14 @@ CREATE TABLE maestros (
     maestro_nombres VARCHAR(64) NOT NULL,
     maestro_apellido_paterno VARCHAR(64) NOT NULL,
     maestro_apellido_materno VARCHAR(64) NOT NULL,
-    maestro_estado BOOLEAN DEFAULT TRUE
+    maestro_estado BOOLEAN DEFAULT TRUE,
+    fecha_nacimiento DATE NOT NULL
 );
 
-CREATE TABLE especialidades (
-    especialidad_id INT PRIMARY KEY AUTO_INCREMENT,
-    especialidad_nombre VARCHAR(64) NOT NULL,
-    especialidad_estado BOOLEAN DEFAULT TRUE
-);
-
-ALTER TABLE maestros ADD COLUMN especialidad_id INT;
-
-INSERT INTO especialidades 
-(especialidad_nombre) 
-VALUES 
-('Tecnologías de la información'),
-("Desarrollo de negocios"),
-("Mantenimiento industrial"),
-("Procesos industriales");
-
-INSERT INTO maestros 
-(maestro_nombres, maestro_apellido_paterno, maestro_apellido_materno, especialidad_id) 
-VALUES 
-('Juan', 'Perez', 'Lopez', 1),
-('Maria', 'Gonzalez', 'Hernandez', 2),
-('Carlos', 'Ramirez', 'Martinez', 3),
-('Ana', 'Sanchez', 'Diaz', 4);
+INSERT INTO maestros (maestro_nombres, maestro_apellido_paterno, maestro_apellido_materno, fecha_nacimiento)
+VALUES ('Juan', 'Perez', 'Garcia', '1990-01-01'),
+       ('Maria', 'Gonzalez', 'Lopez', '1995-02-02'),
+       ('Pedro', 'Rodriguez', 'Hernandez', '1998-03-03'),
+       ('Ana', 'Martinez', 'Gomez', '2000-04-04'),
+       ('Luis', 'Sanchez', 'Perez', '1985-05-05'),
+       ('Laura', 'Torres', 'Ramirez', '2000-06-06');

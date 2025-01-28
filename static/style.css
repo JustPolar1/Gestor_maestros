@@ -53,6 +53,23 @@ nav * {
     width: 100px;
 }
 
+#agregar-maestro form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px auto;
+}
+
+#agregar-maestro form input {
+    padding: 10px;
+    border-radius: 10px;
+    border: gray 2px solid;
+}
+
+#agregar-maestro form button {
+    background-color: mediumaquamarine;
+}
+
 section {
     display: flex;
     margin: 0 auto;
@@ -103,6 +120,24 @@ h1 {
 #maestros {
     flex-grow: 1;
     overflow-y: auto;
+}
+
+#maestros li {
+    list-style: none;
+    width: 80%;
+    margin: auto;
+    background-color: white;
+}
+
+#maestros li:hover {
+    filter: brightness(0.80); /* Reduce el brillo al 80% */
+    cursor: pointer;
+}
+
+hr {
+    border: 1px solid #ccc; /* Cambia el color y grosor */
+    margin: 6px auto 6px auto; /* Espacio superior e inferior */
+    width: 80%; /* Ancho de la línea */
 }
 
 #buscar {

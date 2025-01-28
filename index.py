@@ -1,4 +1,4 @@
-from flask import Flask, send_from_directory, jsonify
+from flask import Flask, send_from_directory, jsonify, request
 import mysql.connector
 import mysql.connector.cursor
 import mysql.connector.cursor_cext
@@ -39,8 +39,6 @@ db = Database(
     password="12345",
     database="maestros"
 )
-db.connect()
-cursor = db.cursor()
 
 @app.route("/")
 def index():
@@ -48,8 +46,47 @@ def index():
 
 @app.route("/maestros")
 def get_maestros():
+    db.connect()
+    cursor = db.cursor()
+
+    if request.args.get("id"):
+        cursor.execute("SELECT * FROM maestros WHERE maestro_id = %s", (request.args.get("id"),))
+        datos = cursor.fetchone()
+        print(datos)
+        return jsonify(datos)
+    
     cursor.execute("SELECT * FROM maestros")
     return jsonify(cursor.fetchall())
+
+@app.route("/maestros", methods=["POST"])
+def post_maestro():
+    try:
+        db.connect()
+        cursor = db.cursor()
+        data = request.get_json()
+
+        if data.keys() != {"maestro_nombres", "maestro_apellido_paterno", "maestro_apellido_materno", "fecha_nacimiento"}:
+            return jsonify({"message": "Faltan datos"}), 400
+        
+        print(data.values())
+
+        if not all(data.values()):
+            return jsonify({"message": "Los datos no pueden estar vacíos"}), 400
+
+        cursor.execute("INSERT INTO maestros (maestro_nombres, maestro_apellido_paterno, maestro_apellido_materno, fecha_nacimiento) VALUES (%s, %s, %s, %s)", 
+                       (data["maestro_nombres"], 
+                        data["maestro_apellido_paterno"], 
+                        data["maestro_apellido_materno"], 
+                        data["fecha_nacimiento"]))
+        db.connection.commit()
+        db.connection.close()
+        cursor.close()
+        return jsonify({"message": "Maestro agregado exitosamente"}), 201
+    except Exception as e:
+        data = request.get_json()
+        print(data)
+        print(e)
+        return jsonify({"message": str(e)}), 500
 
 if __name__ == "__main__":
     app.run()

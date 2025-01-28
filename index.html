@@ -19,9 +19,20 @@
                 <div id="informacion-maestro">
                     <img id="perfil" src="/static/foto.png" alt="Foto de perfil">
                     <p id="nombre">-</p>
-                    <p>-</p>
+                    <p id="fecha">-</p>
                 </div>
-                <button id="lista">Agregar</button>
+
+                <div id="agregar-maestro">
+                    <form>
+                        <input type="text" id="maestro_nombres" placeholder="Nombre del maestro">
+                        <input type="text" id="maestro_apellido_paterno" placeholder="Apelllido paterno">
+                        <input type="text" id="maestro_apellido_materno" placeholder="Apellido materno">
+                        <input type="date" id="fecha_nacimiento" placeholder="Fecha de nacimiento">
+                        <button type="submit">Guardar maestro</button>
+                    </form>
+                </div>
+
+                <button id="lista">Agregar otro maestro</button>
             </div>
             <div class="acciones lista">
                 <h3>Lista de maestros:</h2>
